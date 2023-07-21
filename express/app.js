@@ -38,4 +38,6 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+console.log('express backend is working right now!');
+
 module.exports = app;
