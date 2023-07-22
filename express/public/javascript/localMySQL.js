@@ -1,6 +1,6 @@
 import mysql from 'mysql';
 
-export const MySQLConnection = mysql.createConnection({
+const MySQLConnection = mysql.createConnection({
     host: 'localhost',
     user: 'food-tracker-admin',
     password: '',
@@ -8,24 +8,24 @@ export const MySQLConnection = mysql.createConnection({
     database: "food_tracker_database"
 });
 
-export const sqlQuery = (query) => {
-    MySQLConnection.connect(function (err) {
-        if (err) { console.error('Error:', err) }
-        console.log('connected database');
-        MySQLConnection.query(query, function (err, result) {
-            if (err) { throw err; }
-            return result;
-        });
-    });
-}
+MySQLConnection.connect(function (err) {
+    if (err) { console.error('Error:', err) }
+    console.log('Successfully connected MySQL database');
+});
 
-export const sqlQueryWithData = (query, data) => {
-    MySQLConnection.connect(function (err) {
-        if (err) { console.error('Error:', err) }
-        console.log('connected database');
-        MySQLConnection.query(query, data, function (err, result) {
-            if (err) { throw err; }
-            return result;
+export function sqlQuery(query, data) {
+    return new Promise(resolve => {
+        console.log('query: ' + query);
+        console.log('data: ' + data);
+        MySQLConnection.query(query, data, function (error, result) {
+            if (error) { throw error }
+            try {
+                console.log('result: ' + JSON.stringify(result));
+                resolve(result);
+            } catch (error) {
+                resolve({});
+                throw error;
+            }
         });
     });
 }

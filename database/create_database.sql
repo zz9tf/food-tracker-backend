@@ -6,7 +6,7 @@ USE food_tracker_database;
 
 -- Create the Users_Basic_Information Table
 CREATE TABLE Users_Basic_Information (
-    user_id INT PRIMARY KEY,
+    user_id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(100) UNIQUE NOT NULL,
     email VARCHAR(255) UNIQUE NOT NULL,
     password VARCHAR(255) NOT NULL,
@@ -16,7 +16,7 @@ CREATE TABLE Users_Basic_Information (
 
 -- Create the Foods_Basic_Information Table
 CREATE TABLE Foods_Basic_Information (
-    food_id INT PRIMARY KEY,
+    food_id INT AUTO_INCREMENT PRIMARY KEY,
     food_name VARCHAR(100),
     food_image_path VARCHAR(255),
     quantity DECIMAL(10, 2),
@@ -33,7 +33,7 @@ CREATE TABLE Foods_Basic_Information (
 
 -- Create the Receipts_Basic_Information Table
 CREATE TABLE Receipts_Basic_Information (
-    receipt_id INT PRIMARY KEY,
+    receipt_id INT AUTO_INCREMENT PRIMARY KEY,
     receipt_name VARCHAR(100),
     receipt_image_url VARCHAR(255),
     tags VARCHAR(255),
@@ -54,7 +54,7 @@ CREATE TABLE User_Favorite_Recipes (
 
 -- Create the User’s Replied message Table
 CREATE TABLE User_Replied_Message (
-    message_id INT PRIMARY KEY,
+    message_id INT AUTO_INCREMENT PRIMARY KEY,
     created_by INT,
     recipe_get_replied INT,
     message_get_replied INT,
