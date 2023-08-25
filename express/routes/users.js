@@ -1,6 +1,6 @@
 var express = require('express');
 
-import { sqlQuery, sqlQueryWithData } from '../public/javascript/localMySQL';
+import { sqlQuery } from '../public/javascript/localMySQL';
 
 var router = express.Router();
 
@@ -41,6 +41,25 @@ router.post('/register', async function(req, res) {
   );
   result = await sqlQuery(`SELECT * FROM Users_Basic_Information`, null);
   return res.json(result);
+});
+
+router.post('/login', async function(req, res) {
+  const email = req.body.email;
+  const password = req.body.password;
+
+  const result = await sqlQuery(
+    `SELECT * FROM Users_Basic_Information WHERE email = ?`,
+    email
+  );
+  if (result.length === 0) {
+    return res.status(400).send({message: 'email not found'});
+  } else if (result.length > 1) {
+    return res.status(400).send({message: 'Found multiple user emails.'})
+  } else if (result[0].password !== password) {
+    return res.status(400).send({message: 'Wrong password'});
+  }
+  
+  return res.json(result[0]);
 });
 
 module.exports = router;

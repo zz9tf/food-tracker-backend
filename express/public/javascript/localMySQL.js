@@ -1,7 +1,7 @@
 import mysql from 'mysql';
 
 const MySQLConnection = mysql.createConnection({
-    host: 'localhost',
+    host: process.env.mode == 'test' ? 'localhost' : 'host.docker.internal',
     user: 'food-tracker-admin',
     password: '',
     port: '3306',
